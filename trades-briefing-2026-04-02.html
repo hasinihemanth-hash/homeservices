@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relay Trades Intelligence Briefing · Week of April 2, 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f4f5f7; color: #1a1a2e; line-height: 1.6; }
+
+    /* Header */
+    .header { background: linear-gradient(135deg, #1a56db 0%, #1240a8 100%); color: white; padding: 2rem 2.5rem; }
+    .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; }
+    .header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; }
+    .header .subtitle { opacity: 0.8; margin-top: 0.3rem; font-size: 0.9rem; }
+    .header-meta { text-align: right; font-size: 0.82rem; opacity: 0.75; }
+    .header-meta span { display: block; }
+
+    /* Layout */
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .section { margin-bottom: 2.5rem; }
+    .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid #e2e8f0; }
+    .section-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .section-icon.blue { background: #dbeafe; }
+    .section-icon.purple { background: #ede9fe; }
+    .section-title { font-size: 1.2rem; font-weight: 700; color: #1a1a2e; }
+    .section-desc { font-size: 0.82rem; color: #64748b; margin-top: 0.1rem; }
+
+    /* Cards grid */
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+    .card { background: white; border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.07); border: 1px solid #e8edf3; }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 0.5rem; }
+    .card-title { font-weight: 600; font-size: 0.95rem; color: #1a1a2e; flex: 1; }
+    .badge { font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+    .badge-macro { background: #dbeafe; color: #1d4ed8; }
+    .badge-pain { background: #fef3c7; color: #b45309; }
+    .badge-competitor { background: #f3e8ff; color: #7c3aed; }
+    .badge-demgen { background: #d1fae5; color: #065f46; }
+    .badge-win { background: #d1fae5; color: #065f46; }
+    .badge-objection { background: #fee2e2; color: #b91c1c; }
+    .badge-theme { background: #e0e7ff; color: #3730a3; }
+    .badge-competitive { background: #fce7f3; color: #9d174d; }
+
+    .card-section { margin-top: 0.7rem; }
+    .card-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin-bottom: 0.2rem; }
+    .card-body { font-size: 0.86rem; color: #374151; line-height: 1.55; }
+    .card-divider { border: none; border-top: 1px solid #f1f5f9; margin: 0.7rem 0; }
+
+    .source-tag { font-size: 0.72rem; color: #94a3b8; margin-top: 0.6rem; display: flex; align-items: center; gap: 0.3rem; }
+    .source-tag a { color: #1a56db; text-decoration: none; }
+    .source-tag a:hover { text-decoration: underline; }
+
+    /* Leadership callout */
+    .leadership-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #bfdbfe; border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 0.5rem; }
+    .leadership-box h3 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #1d4ed8; margin-bottom: 0.75rem; }
+    .leadership-box ul { list-style: none; padding: 0; }
+    .leadership-box ul li { font-size: 0.875rem; color: #1e3a5f; padding: 0.35rem 0; padding-left: 1.2rem; position: relative; line-height: 1.5; }
+    .leadership-box ul li::before { content: "→"; position: absolute; left: 0; color: #1a56db; font-weight: 700; }
+
+    /* Gong section callout box (purple) */
+    .leadership-box.purple { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-color: #c4b5fd; }
+    .leadership-box.purple h3 { color: #6d28d9; }
+    .leadership-box.purple ul li { color: #2e1065; }
+    .leadership-box.purple ul li::before { color: #7c3aed; }
+
+    /* Implications box */
+    .implications-box { background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 1rem; }
+    .implications-box h3 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #374151; margin-bottom: 1rem; }
+    .implications-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .implication-item { padding: 0.9rem 1rem; background: #f8fafc; border-radius: 8px; border-left: 3px solid #e2e8f0; }
+    .implication-item.product { border-left-color: #1a56db; }
+    .implication-item.content { border-left-color: #16a34a; }
+    .implication-item.sales { border-left-color: #dc2626; }
+    .implication-team { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+    .implication-item.product .implication-team { color: #1a56db; }
+    .implication-item.content .implication-team { color: #16a34a; }
+    .implication-item.sales .implication-team { color: #dc2626; }
+    .implication-body { font-size: 0.84rem; color: #374151; line-height: 1.5; }
+
+    /* Gong subsections */
+    .gong-subsection { margin-bottom: 1.5rem; }
+    .gong-subsection-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #6b7280; margin-bottom: 0.75rem; padding-left: 0.75rem; border-left: 3px solid #e2e8f0; }
+    .gong-subsection-title.wins { border-left-color: #16a34a; color: #15803d; }
+    .gong-subsection-title.objections { border-left-color: #dc2626; color: #b91c1c; }
+    .gong-subsection-title.themes { border-left-color: #1a56db; color: #1d4ed8; }
+    .gong-subsection-title.competitive { border-left-color: #9333ea; color: #7e22ce; }
+
+    /* Alert banner */
+    .alert { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.84rem; color: #9a3412; display: flex; align-items: center; gap: 0.5rem; }
+
+    @media (max-width: 600px) {
+      .header { padding: 1.5rem; }
+      .container { padding: 1rem; }
+      .cards { grid-template-columns: 1fr; }
+      .implications-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>🏠 Relay Trades Intelligence Briefing</h1>
+      <div class="subtitle">Week of April 2, 2026 · Home Services Demand Generation</div>
+    </div>
+    <div class="header-meta">
+      <span>Generated April 2, 2026</span>
+      <span>Industry Research + Gong Call Intel</span>
+      <span>#gong-wow · #gong-ouch · Apr 1–2</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ==================== SECTION 1: INDUSTRY BRIEFING ==================== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon blue">📰</div>
+      <div>
+        <div class="section-title">Industry Briefing</div>
+        <div class="section-desc">What's happening in the trades and home services market this week — and what it means for Relay's demand generation strategy.</div>
+      </div>
+    </div>
+
+    <!-- MACRO TRENDS -->
+    <div class="gong-subsection">
+      <div class="gong-subsection-title themes">Macro Trends</div>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Deferred Remodeling Projects Starting to Unlock — $503B Market Inflecting</div>
+            <span class="badge badge-macro">Macro Trend</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What</div>
+            <div class="card-body">The U.S. home remodeling market hit $503 billion in 2024 and is now entering a recovery phase. R&R spending is projected to grow mid-single digits in 2026, then accelerate to high single-digit growth in 2027, as homeowners who paused renovation plans due to economic uncertainty and tariff fears are now starting to move forward. Median homeowner renovation spend reached $20,000 in 2024.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters to Relay</div>
+            <div class="card-body">More projects moving forward means more cash flowing through trades businesses — and more pressure on owners to manage that cash effectively. Contractors taking on larger, more frequent jobs are exactly the profile where Relay's account structure, real-time visibility, and bill pay become critical tools.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Demand Gen Angle</div>
+            <div class="card-body">Spring campaign hook: "Busy season is back — is your banking ready?" Target contractors who are scaling up after a slow winter. Content angle: how to set up separate accounts for each project to track profitability in real time, tied to Relay's multi-account structure.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">550K Plumber Shortage Looming by 2027 — Trades Labor Crisis Deepens</div>
+            <span class="badge badge-macro">Macro Trend</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What</div>
+            <div class="card-body">By 2027, the U.S. could face a shortage of 550,000 plumbers alone, driven by an aging workforce and a decades-long decline in vocational training enrollment. HVAC and electrical trades are seeing similar pressure. Contractors who can attract and retain skilled labor will charge premium rates — but also face higher payroll costs and more complex crew management.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters to Relay</div>
+            <div class="card-body">Labor scarcity forces trades owners to get serious about financial operations — because every hour spent on admin is an hour that could go to a job. Relay's value prop around reducing bookkeeping overhead and enabling team card spending with controls resonates directly with trades owners stretched thin by staffing challenges.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Demand Gen Angle</div>
+            <div class="card-body">Content series: "Running lean in the trades" — how to scale without adding admin staff. Relay as the financial backbone for a tight crew. Pair with social proof from trades owners who cut bookkeeping time (like Cargo Workshop's goal to reduce 8 hrs/week).</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FINANCIAL PAIN POINTS -->
+    <div class="gong-subsection">
+      <div class="gong-subsection-title objections">Financial Pain Points</div>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">The Hidden Cash Flow Crisis: Profitable Contractors Still Struggling to Make Payroll</div>
+            <span class="badge badge-pain">Pain Point</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What</div>
+            <div class="card-body">A widely-cited 2026 analysis from fractional CFOs reveals that trades businesses face a "hidden cash flow crisis" — materials, payroll, permits, and subcontractors demand upfront payment, but client checks arrive 30–90 days later. In 2026, this timing gap is colliding with tighter margins, higher input costs, and more risk being pushed down to trade partners, turning slow pay from an annoyance into an existential threat.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters to Relay</div>
+            <div class="card-body">This directly validates Relay's core positioning around financial visibility and control. Trades owners don't have a revenue problem — they have a cash flow timing and visibility problem. Relay's account structure (separate income/operating/payroll accounts with auto-transfer rules) is purpose-built for exactly this scenario.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Demand Gen Angle</div>
+            <div class="card-body">Lead magnet campaign: "The Profitable Contractor's Guide to Never Missing Payroll." Use the stat about profitability ≠ cash in hand as a hook in paid social. This is the clearest bridge between market reality and Relay's product story right now.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Tariff Impact: Material Costs Up 5–50%, Wiping Out Contractor Profit Margins in Real Time</div>
+            <span class="badge badge-pain">Pain Point</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What</div>
+            <div class="card-body">Nonresidential construction input prices rose at a 7.1% annualized rate in January 2026, driven by Section 232 tariffs on steel (now up to 50%) and aluminum. Across key categories — structural steel, copper wire, roofing materials — costs are up 5–50%. Only 24% of contractors say they have not been affected. A 20% material cost increase can wipe out 50–70% of a contractor's entire profit margin. Spring 2026 is seeing a wave of rebids and delayed project starts as owners try to re-baseline their cost assumptions.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters to Relay</div>
+            <div class="card-body">When margins are this thin, real-time visibility into project-level cash flow isn't a nice-to-have — it's survival. Contractors who can see exactly where money is going (materials, labor, overhead) and set up alerts or controls around spending are the ones who will stay solvent. This is a moment to be loud about Relay's expense tracking and receipt capture.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Demand Gen Angle</div>
+            <div class="card-body">Timely content hook: "Tariffs are eating your margins — here's how to see exactly where every dollar is going." This is a moment for a LinkedIn post, an email nurture sequence opener, or a paid campaign targeting contractors in roofing, HVAC, and electrical. Urgency is unusually high right now.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- COMPETITOR & MARKET MOVES -->
+    <div class="gong-subsection">
+      <div class="gong-subsection-title competitive">Competitor & Market Moves</div>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">98% of SMBs Now Prefer Fintech Over Traditional Banks — But the Market is Getting Crowded Fast</div>
+            <span class="badge badge-competitor">Competitor Move</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What</div>
+            <div class="card-body">A 2025 Financial Technology Association survey found that 98% of small businesses say fintech services meet their needs better than traditional banks. As of 2026, nearly 1 in 3 U.S. banking customers now considers a neobank their primary relationship. Finom (Europe) just closed a €115M Series B. Nubank is pursuing a U.S. banking charter. Qonto secured a European banking license and is targeting 2M clients by 2030. The SMB neobank space is moving fast and the race to own vertical niches — like trades — is intensifying.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters to Relay</div>
+            <div class="card-body">The window to own the "banking for trades" position is open right now, but won't be forever. Relay has a head start in home services through product-market fit and existing customers — but as generalist neobanks like Mercury, Bluevine, and international players scale, vertical positioning becomes both more valuable and more contested. Now is the time to double down on trades-specific proof points and messaging.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Demand Gen Angle</div>
+            <div class="card-body">Campaigns that explicitly name the trades vertical and speak the industry's language will stand out against generalist competition. Consider trades association partnerships (PHCC, ACCA, NECA) as distribution channels that competitors haven't locked up yet. A "Relay for Plumbers" or "Relay for HVAC" landing page strategy would defend vertical position.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DEMAND GEN OPPORTUNITIES -->
+    <div class="gong-subsection">
+      <div class="gong-subsection-title wins">Demand Gen Opportunities</div>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Spring Booking Rush + After-Hours Demand Creates a Speed-to-Lead Moment for Relay Messaging</div>
+            <span class="badge badge-demgen">DemGen Hook</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What</div>
+            <div class="card-body">Industry data shows 41% of home services jobs booked online come in after hours, when most businesses aren't actively responding. Speed-to-lead is now the #1 factor in who wins the job. The spring demand surge is here — HVAC (83% reporting increased demand), roofing (74%), and general contracting are all seeing booking acceleration after a slow winter. The trades owners who win this season will be the ones running lean, fast operations.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters to Relay</div>
+            <div class="card-body">Relay fits naturally into the "winning trades business" identity. A contractor who has their finances dialed in — accounts organized, team cards issued, bill pay flowing — has more mental bandwidth to focus on winning jobs and responding to customers. Relay is the financial operating system for the high-performing trades business.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Demand Gen Angle</div>
+            <div class="card-body">Spring launch campaign: "Your busiest season is about to start. Is your money ready?" Hit this in early April before peak season fully kicks in. Pair with a customer story from a trades owner who set up Relay before spring and felt the difference. The timing is ideal — run this in the next 2–3 weeks.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Bookkeeper Partner Channel: A High-Leverage Acquisition Path That's Right in Front of Us</div>
+            <span class="badge badge-demgen">DemGen Hook</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What</div>
+            <div class="card-body">Green Tree Bookkeeping (from this week's Gong calls) manages 120 small business clients and is actively looking for a banking solution to move her clients off inefficient credit unions — and Relay stepped in to propose a pilot program. This is a pattern worth scaling: bookkeepers who manage trades businesses are a high-leverage distribution channel. One bookkeeper can funnel dozens of trades clients to Relay if the partnership is structured right.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters to Relay</div>
+            <div class="card-body">The bookkeeper-to-client pipeline is largely untapped from a marketing standpoint. Relay already has a partner program — the question is whether it's being actively marketed to bookkeepers who serve the trades vertical. This is a demand gen surface area that doesn't require paid media spend to access.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Demand Gen Angle</div>
+            <div class="card-body">Consider a targeted outreach campaign to bookkeepers and fractional CFOs who serve trades clients. A "Refer your clients to Relay" campaign with a clear partner program pitch — revenue share, white-glove onboarding support, co-branded resources — could drive high-quality referrals. The Green Tree call is a proof-of-concept worth building a playbook around.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- LEADERSHIP CALLOUT: INDUSTRY -->
+    <div class="leadership-box">
+      <h3>📌 So What for Leadership</h3>
+      <ul>
+        <li>The deferred remodeling backlog is unlocking in spring 2026, creating a seasonal demand spike that Relay should be in front of right now with targeted campaigns — the next 3–4 weeks are a high-leverage window before competitors activate their own spring messaging.</li>
+        <li>Tariff-driven margin compression is hitting trades businesses at a moment of unusual vulnerability: material costs are up 5–50%, only 24% of contractors are unaffected, and a 20% cost increase can erase 50–70% of profit margin — this is the strongest real-world validator for Relay's financial visibility messaging that we've had in months.</li>
+        <li>The SMB neobank space is consolidating and verticalizing fast — Finom's €115M raise and Nubank's U.S. charter pursuit signal that well-funded generalists are coming for the same customers. Relay's trades-vertical positioning needs to be defended actively, not maintained passively.</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ==================== SECTION 2: GONG INTELLIGENCE ==================== -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon purple">📞</div>
+      <div>
+        <div class="section-title">Gong Call Intelligence</div>
+        <div class="section-desc">Synthesized from <strong>8 calls</strong> reviewed across <strong>#gong-wow</strong> and <strong>#gong-ouch</strong> · April 1–2, 2026. Note: this week's calls skew toward general SMB and bookkeeper-channel accounts; fewer direct home services verticals posted but themes are highly transferable to trades.</div>
+      </div>
+    </div>
+
+    <!-- KEY THEMES & PAIN POINTS -->
+    <div class="gong-subsection">
+      <div class="gong-subsection-title themes">Key Themes & Pain Points</div>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">The Bookkeeping Burden Is Real — and Business Owners Are Quoting Specific Hours</div>
+            <span class="badge badge-theme">Theme</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What's Happening</div>
+            <div class="card-body">In the Cargo Workshop onboarding call, Dylan Gould didn't just say bookkeeping was painful — he quantified it. His explicit goal for switching to Relay was to "reduce 8 hours per week on bookkeeping." This specificity suggests he's been tracking the problem and it's been on his mind for a while. Similarly, bookkeeper Gina Malvestuto (Green Tree Bookkeeping) described managing 120 clients with a decimated team, losing 5 of 7 new hires in quick succession, and personally reviewing every piece of client work because she can't trust new staff. The theme across both calls: administrative burden is eating the business alive.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters</div>
+            <div class="card-body">Business owners are not just vaguely aware of the pain — they're measuring it. When prospects arrive with specific hour counts, that signals a buyer ready to act. It also means Relay's messaging should mirror that specificity: not "save time" but "cut your bookkeeping hours in half."</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">So What</div>
+            <div class="card-body">Sales should be trained to ask "how many hours a week do you spend on financial admin?" early in discovery — it creates a concrete anchor for ROI conversations. Marketing should test ad copy that leads with quantified time savings (e.g., "Trades owners save 6–8 hours/week on bookkeeping with Relay"). This is also strong testimonial fuel if we can get Dylan on record.</div>
+          </div>
+          <div class="source-tag">📎 <a href="https://us-26561.app.gong.io/call?id=2736361548954447564" target="_blank">#gong-wow · Cargo Workshop, Inc. · Apr 2</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Bank Switching is Cognitively Overwhelming — Prospects Need a Migration Partner, Not Just a Product</div>
+            <span class="badge badge-theme">Theme</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What's Happening</div>
+            <div class="card-body">Rocky Sexton (Integrity Chiropractic, from #gong-ouch) said he felt "generally overwhelmed" when presented with the 3-month onboarding timeline. The prospect from Common Good LLC hit a snag with ACH transfer limits ($2,000/day initially) and expressed concern about Relay's international wire suspension. Cargo Workshop's Dylan is juggling a bookkeeper selection decision alongside the migration itself. The pattern: even motivated switchers feel the weight of the transition.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters</div>
+            <div class="card-body">This is a conversion-stage risk. Prospects who say "yes" to Relay can still churn back to inertia if the migration feels too hard. The overwhelm moment is the highest-risk point in the buyer journey.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">So What</div>
+            <div class="card-body">Content should proactively address the switching cost fear: "What does moving to Relay actually take?" A short-form video or checklist showing the 90-day migration process as lightweight and supported could reduce this anxiety before it surfaces on calls. The 90-day success plan is a genuine differentiator — we should be marketing it more loudly.</div>
+          </div>
+          <div class="source-tag">📎 <a href="https://us-26561.app.gong.io/call?id=6238949793598504507" target="_blank">#gong-ouch · Integrity Chiropractic · Apr 2</a> &amp; <a href="https://us-26561.app.gong.io/call?id=7739272157723348709" target="_blank">Common Good LLC · Apr 2</a></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WHAT'S WORKING -->
+    <div class="gong-subsection">
+      <div class="gong-subsection-title wins">What's Working (from #gong-wow)</div>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Profit First Account Structure Lands as an Immediate "Aha" Moment</div>
+            <span class="badge badge-win">Win</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What's Happening</div>
+            <div class="card-body">In the Common Good LLC onboarding call, Sacha Dunn independently came in already wanting to set up Relay using the Profit First methodology — and when Sukyee walked through the percentage-based auto-transfer rules that allocate funds from an income account into separate buckets (rent, operations, sales tax), Sacha responded enthusiastically: "I'm ready to make a move." Dylan at Cargo Workshop is also planning to use auto-transfer rules once his bookkeeper is selected. Profit First isn't just a feature — it's a frame that resonates with financially-aware small business owners who are tired of not knowing where their money is.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters</div>
+            <div class="card-body">Profit First has a large, passionate community of small business owners — and Relay's multiple-account, auto-transfer architecture is one of the best implementations of it anywhere in banking. Prospects who already know Profit First are arriving pre-sold. Prospects who don't know it light up when they see it in action.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">So What</div>
+            <div class="card-body">Marketing should lean harder into Profit First as a content pillar — partner with a Profit First Certified Professional (PFCP), create a "Set up Relay for Profit First" guide, and run targeted ads to the Profit First community on Facebook and LinkedIn. This is a high-intent audience we may be underleveraging.</div>
+          </div>
+          <div class="source-tag">📎 <a href="https://us-26561.app.gong.io/call?id=7739272157723348709" target="_blank">#gong-wow · Common Good LLC · Apr 2</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Multiple Accounts + Easy Renaming Is a Delight Moment That Closes Deals</div>
+            <span class="badge badge-win">Win</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What's Happening</div>
+            <div class="card-body">Dylan Gould at Cargo Workshop told Nicole: "The fact that I could create all those accounts and rename them and do all that stuff was pretty cool." He'd tried this with his previous bank (TD Bank) and couldn't do it easily. Leah at Baseline Medical Management switched to Relay specifically because her prior bank "couldn't handle multiple entities," and the single-login multi-entity management was the deciding factor. In both cases, the flexibility of account creation — something Relay does seamlessly — was the concrete moment that converted skeptics into believers.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters</div>
+            <div class="card-body">This feature is so native to Relay that reps may underestimate how powerful it is as a demo moment. Traditional banks and legacy platforms genuinely can't do this — and business owners who've been frustrated by the limitation respond with real excitement when they see it.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">So What</div>
+            <div class="card-body">Make this a hero moment in top-of-funnel content: a 30-second screen recording of creating and renaming accounts in Relay — no narration needed — could be a high-performing organic social asset. Lead gen ads showing the contrast ("your bank: one account. Relay: as many as you need, named however you want") could resonate strongly with trades owners who manage separate project finances.</div>
+          </div>
+          <div class="source-tag">📎 <a href="https://us-26561.app.gong.io/call?id=2736361548954447564" target="_blank">#gong-wow · Cargo Workshop · Apr 2</a> &amp; <a href="https://us-26561.app.gong.io/call?id=6436925228516696746" target="_blank">Baseline Medical · Apr 2</a></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- OBJECTIONS & LOSSES -->
+    <div class="gong-subsection">
+      <div class="gong-subsection-title objections">Objections & Deal Risks (from #gong-ouch)</div>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">International Wire Suspension Is an Active Deal Blocker — Showing Up on Multiple Calls</div>
+            <span class="badge badge-objection">Objection</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What's Happening</div>
+            <div class="card-body">Sacha Dunn at Common Good LLC runs a B2B business with international distribution partners. During onboarding, she discovered that Relay's international wire receiving functionality is temporarily suspended due to a change in banking partnership and a backlog in compliance reviews. This was a meaningful friction point — Sacha is moving forward but Sukyee had to de-escalate the concern and commit to a follow-up on timeline. This is at least the second time this week this issue has appeared in calls.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters</div>
+            <div class="card-body">For businesses with any international component — which is increasingly common even among home services companies with supplier relationships or multi-state operations — this is a hard blocker that Relay can't paper over. If the fix timeline isn't communicated clearly and proactively, it risks deals that are otherwise won.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">So What</div>
+            <div class="card-body">Sales Enablement needs an updated objection-handling playbook for this specific issue — including a clear timeline, workarounds (domestic wires, third-party solutions), and language that doesn't undersell the concern. Marketing should audit any content or landing pages that reference international wires to ensure they're not creating expectation mismatches before prospects get on a call.</div>
+          </div>
+          <div class="source-tag">📎 <a href="https://us-26561.app.gong.io/call?id=7739272157723348709" target="_blank">#gong-wow · Common Good LLC · Apr 2</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Feature Discovery Gap: Customers Leaving Value on the Table Because They Don't Know What Relay Offers</div>
+            <span class="badge badge-objection">Missed Opportunity</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What's Happening</div>
+            <div class="card-body">Ryoji Taki at Goemon LLC was using Ramp for expense management and Bank of America for deposits — despite already having a Relay account for payroll. Why? He'd been "misinformed that Relay didn't support QuickBooks class and location tracking." When his Relay account manager Brenda demonstrated the feature, he was genuinely surprised it existed. This isn't an isolated case — across multiple calls this week, customers expressed surprise at capabilities they didn't know Relay had (expense auto-categorization, receipt forwarding, Shopify integration).</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters</div>
+            <div class="card-body">If existing Relay customers are using competitor products for features Relay already has, we have a retention and expansion problem masquerading as a competitive problem. Every customer who consolidates from Ramp + BofA to Relay-only is a significant ACV expansion and a competitive moat deepened.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">So What</div>
+            <div class="card-body">Product Marketing should audit which features are most commonly undiscovered by existing customers — this is likely a top-of-app/onboarding content problem. A "Did you know Relay can..." email series for existing customers could drive meaningful expansion. For demand gen, feature-specific landing pages (e.g., "Relay vs. Ramp for small business") could capture switchers who don't know Relay competes in the expense management space.</div>
+          </div>
+          <div class="source-tag">📎 <a href="https://us-26561.app.gong.io/call?id=2047575737995079257" target="_blank">#gong-ouch · Goemon LLC · Mar 31</a></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- COMPETITIVE INTEL -->
+    <div class="gong-subsection">
+      <div class="gong-subsection-title competitive">Competitive Intel</div>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Chase, Truist & TD Bank All Appeared as "Switching From" Banks This Week</div>
+            <span class="badge badge-competitive">Competitive Intel</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What's Happening</div>
+            <div class="card-body">This week's calls show three distinct incumbent bank churns coming into Relay: Common Good LLC is leaving <strong>Chase</strong> (couldn't set up multi-account structure for Profit First), Integrity Chiropractic is leaving <strong>Truist</strong> (poor customer service experience, difficulty getting things done), and Cargo Workshop is leaving <strong>TD Bank</strong> (couldn't handle wire transfers, insufficient account flexibility). The specific frustrations are different, but the pattern is the same: legacy banks can't give small business owners the visibility, flexibility, and control they need.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters</div>
+            <div class="card-body">This is a clear signal that the incumbent bank → Relay migration narrative is alive and working. These aren't customers switching from other neobanks — they're coming from Chase, Truist, and TD Bank, which means the primary competitive fight at acquisition stage is still against legacy players, not Mercury or Bluevine.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">So What</div>
+            <div class="card-body">Retargeting campaigns and paid search copy should explicitly address the "switching from a big bank" journey. "Tired of Chase's limitations?" or "What TD Bank can't do that Relay can" are high-intent frames. Consider building out comparison landing pages for Chase, Truist, and Wells Fargo specifically — the win rate against these banks is likely strong and the SEO opportunity is real.</div>
+          </div>
+          <div class="source-tag">📎 #gong-wow · Cargo Workshop · Apr 2 &amp; Common Good LLC · Apr 2 &amp; #gong-ouch · Integrity Chiropractic · Apr 2</div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Ramp Showing Up as Expense Management Incumbent — But Customers Are Willing to Consolidate</div>
+            <span class="badge badge-competitive">Competitive Intel</span>
+          </div>
+          <div class="card-section">
+            <div class="card-label">What's Happening</div>
+            <div class="card-body">Goemon LLC was using Ramp for team card expense management alongside Relay for payroll — a split-stack arrangement that Brenda successfully challenged by demonstrating Relay's QuickBooks class and location tracking. Ryoji's willingness to consider consolidating was conditioned on whether Relay could match Ramp's 1.5–2% cash back. Ramp is also mentioned implicitly in Cargo Workshop's bill pay exploration (where "Adaptive" was discussed as an alternative to Relay's native bill pay).</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">Why It Matters</div>
+            <div class="card-body">Ramp is occupying a specific wedge in the Relay customer base — expense management. This is a consolidation opportunity where Relay already has the relationship and can potentially win. But the cash back comparison is a real battleground: if Relay's credit card cash back is competitive, this should be amplified; if it's not, Product needs to know this is a retention risk.</div>
+          </div>
+          <hr class="card-divider">
+          <div class="card-section">
+            <div class="card-label">So What</div>
+            <div class="card-body">Build a "Relay vs. Ramp" battlecard for sales that specifically addresses cash back rates, QuickBooks integration depth, and the consolidation story. For demand gen, a targeted LinkedIn campaign to current Ramp users who are also Relay customers (or who work at companies in Relay's ICP) could drive meaningful expansion pipeline.</div>
+          </div>
+          <div class="source-tag">📎 <a href="https://us-26561.app.gong.io/call?id=2047575737995079257" target="_blank">#gong-ouch · Goemon LLC · Mar 31</a></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- LEADERSHIP CALLOUT: GONG -->
+    <div class="leadership-box purple">
+      <h3>📌 So What for Leadership</h3>
+      <ul>
+        <li>The Profit First account structure methodology is functioning as one of Relay's most powerful conversion tools — prospects who understand it arrive pre-sold, and those who don't understand it light up during demos. This is a content and partnership opportunity that appears to be underleveraged relative to its impact on close rates.</li>
+        <li>The international wire suspension is actively surfacing in deals and creating avoidable friction — this week's calls suggest it's a recurring objection, not a one-off, and Sales Enablement needs an updated playbook with timeline clarity before more deals stall on this issue.</li>
+        <li>Feature discovery gaps among existing Relay customers represent a meaningful expansion opportunity: multiple customers this week were surprised to learn Relay already had capabilities they were paying Ramp and other tools to provide, which points to an onboarding and in-app education problem worth addressing at the product level.</li>
+      </ul>
+    </div>
+
+    <!-- IMPLICATIONS FOR OTHER TEAMS -->
+    <div class="implications-box">
+      <h3>🔁 Implications for Other Teams</h3>
+      <div class="implications-grid">
+        <div class="implication-item product">
+          <div class="implication-team">Product</div>
+          <div class="implication-body">International wire suspension is surfacing as an active deal blocker — the team needs to communicate a clear resolution timeline internally so Sales can give credible answers. Feature discovery gap (QuickBooks class tracking, expense auto-categorization) suggests in-app onboarding for these capabilities needs investment. ACH daily limits ($2K initial) are creating friction at the critical "first transfer" moment for new customers.</div>
+        </div>
+        <div class="implication-item content">
+          <div class="implication-team">Content & Marketing</div>
+          <div class="implication-body">Profit First content series is a high-leverage, low-cost opportunity — consider a partnership with a PFCP and a "Set up Relay for Profit First" guide. Tariff-driven margin pressure is an unusually timely hook for financial visibility messaging right now. The "switching from Chase/Truist/TD Bank" journey is a proven acquisition narrative — comparison landing pages for these banks could capture high-intent organic traffic.</div>
+        </div>
+        <div class="implication-item sales">
+          <div class="implication-team">Sales Enablement</div>
+          <div class="implication-body">Update the international wire objection-handling playbook with current timeline and workarounds. Train reps to lead discovery with "how many hours/week on financial admin?" — this quantified anchor drives stronger ROI conversations. Build a "Relay vs. Ramp" battlecard as Ramp is showing up as an expense management incumbent in existing customer accounts. The 90-day migration success plan is an underleveraged differentiator — reps should name it earlier and more confidently.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
